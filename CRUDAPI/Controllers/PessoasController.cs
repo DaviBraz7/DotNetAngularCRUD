@@ -58,6 +58,9 @@ namespace CRUDAPI.Controllers
         public async Task<ActionResult> ExcluirPessoaAsync(int pessoaId)
         {
             Pessoa pessoa = await _contexto.Pessoas.FindAsync(pessoaId);
+            if(pessoa == null)
+                return NotFound();
+
             _contexto.Remove(pessoa);
             await _contexto.SaveChangesAsync();
             return Ok();
